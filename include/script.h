@@ -1,5 +1,5 @@
-#ifndef GUARD_SCRIPT_H
-#define GUARD_SCRIPT_H
+#ifndef SCRIPT_H
+#define SCRIPT_H
 
 struct ScriptContext;
 
@@ -35,6 +35,7 @@ void LockPlayerFieldControls(void);
 void UnlockPlayerFieldControls(void);
 bool8 ArePlayerFieldControlsLocked(void);
 void ScriptContext_Init(void);
+void EnableBothScriptContexts(void);
 bool8 ScriptContext_IsEnabled(void);
 bool8 ScriptContext_RunScript(void);
 void ScriptContext_SetupScript(const u8 *ptr);
@@ -62,4 +63,4 @@ void InitRamScript_NoObjectEvent(u8 *script, u16 scriptSize);
 // srccmd.h
 void SetMovingNpcId(u16 npcId);
 
-#endif // GUARD_SCRIPT_H
+#endif /* SCRIPT_H */

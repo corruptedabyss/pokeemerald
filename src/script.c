@@ -251,7 +251,11 @@ void ScriptContext_Stop(void)
 {
     sGlobalScriptContextStatus = CONTEXT_WAITING;
 }
-
+void EnableBothScriptContexts()
+{
+    //sScriptContext1Status = 0;
+    ScriptContext_Enable();
+}
 // Puts the script into running mode.
 void ScriptContext_Enable(void)
 {
