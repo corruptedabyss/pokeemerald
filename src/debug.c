@@ -17,21 +17,25 @@ void Debug_ShowMainMenu(void);
 static void Debug_DestroyMainMenu(u8);
 static void DebugAction_Cancel(u8);
 static void DebugTask_HandleMainMenuInput(u8);
-
+static void DebugAction_GiveItem(u8 taskId);
 enum {
     DEBUG_MENU_ITEM_CANCEL,
+    DEBUG_MENU_ITEM_GIVEITEM
 };
 
 static const u8 gDebugText_Cancel[] = _("Cancel");
+static const u8 gDebugText_GiveItem[] = _("Give Item");
 
 static const struct ListMenuItem sDebugMenuItems[] =
 {
-    [DEBUG_MENU_ITEM_CANCEL] = {gDebugText_Cancel, DEBUG_MENU_ITEM_CANCEL}
+    [DEBUG_MENU_ITEM_CANCEL] = {gDebugText_Cancel, DEBUG_MENU_ITEM_CANCEL},
+    [DEBUG_MENU_ITEM_GIVEITEM] = {gDebugText_GiveItem,DEBUG_MENU_ITEM_GIVEITEM}
 };
 
 static void (*const sDebugMenuActions[])(u8) =
 {
-    [DEBUG_MENU_ITEM_CANCEL] = DebugAction_Cancel
+    [DEBUG_MENU_ITEM_CANCEL] = DebugAction_Cancel,
+    [DEBUG_MENU_ITEM_GIVEITEM] = DebugAction_GiveItem
 };
 
 static const struct WindowTemplate sDebugMenuWindowTemplate =
@@ -116,10 +120,26 @@ static void DebugTask_HandleMainMenuInput(u8 taskId)
         Debug_DestroyMainMenu(taskId);
     }
 }
+static void DebugAction_GiveItem(u8 taskId){
+    u8 taskId2 = CreateTask(Debug_DrawGiveItemMenu,80);
+    Debug_DestroyMainMenu();
+    gTasks[taskId2].data[1] = 1;
+    gTasks[taskId2].data[2] = 2;
+    DrawStdWindowFrame(0,FALSE);
+    //TODO Port Text
+    CopyWindowToVram(0, 3);
+    //Debug_DestroyMainMenu(taskId);
 
+}
+
+void Debug_DrawGiveItemMenu(u8 taskId){
+    struct Task* task = gTasks + taskId;
+    
+}
 static void DebugAction_Cancel(u8 taskId)
 {
     Debug_DestroyMainMenu(taskId);
 }
+
 
 #endif
